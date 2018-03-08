@@ -1,15 +1,12 @@
-var SelectMap = function(canvas,onComplete,size){
-  if(size == null){
-    size = [3,3];
-  }
-  var s = 39;//sidelength
-  var p = 1; //padding
-  var color = ['#3d62fe','#3d96fe']
+var SelectMap = function(canvas,onComplete,config){
+  var s = config.s;
+  var p = config.p;
+
   var ctx = canvas.getContext("2d");
   var cursor = null;
 
-  canvas.width = size[0] * (s + p);
-  canvas.height = size[1] * (s + p);
+  canvas.width = config.size[0] * (s + p);
+  canvas.height = config.size[1] * (s + p);
 
   canvas.addEventListener('mousemove',hover);
   canvas.addEventListener('click',click);
@@ -28,16 +25,16 @@ var SelectMap = function(canvas,onComplete,size){
 
   function render(){
     ctx.clearRect(0,0,canvas.width,canvas.height)
-    for(var x = 0; x < size[0]; x++){
-      for(var y = 0; y < size[1]; y++){
-        ctx.fillStyle = color[0];
+    for(var x = 0; x < config.size[0]; x++){
+      for(var y = 0; y < config.size[1]; y++){
+        ctx.fillStyle = config.selectColor[0];
         var xtra = 0;
         if(cursor){
           var xPoint = ((x*s) + (x*p));
           var yPoint = ((y*s) + (y*p));
 
           if(Math.floor(cursor.x/(s + p)) == x && Math.floor(cursor.y/(s + p)) == y){
-            ctx.fillStyle = color[1];
+            ctx.fillStyle = config.selectColor[1];
             xtra = p;
           }
         }
@@ -58,47 +55,42 @@ var SelectMap = function(canvas,onComplete,size){
   }
 }
 
-var HeatMap = function(canvas,map,size){
-  if(size == null){
-    size = [3,3];
-  }
-  var font = "bold 16px Arial";
-  var fontSize = 16;
-  var s = 39;//sidelength
-  var p = 1; //padding
+var HeatMap = function(canvas,map,config){
+  var s = config.s;
+  var p = config.p;
   var ctx = canvas.getContext("2d");
 
-  canvas.width = size[0] * (s + p);
-  canvas.height = size[1] * (s + p);
-
+  canvas.width = config.size[0] * (s + p);
+  canvas.height = config.size[1] * (s + p);
 
   ctx.clearRect(0,0,canvas.width,canvas.height)
 
   var max = 0;
 
-  for(var y = 0; y < size[1]; y++){
-    for(var x = 0; x < size[0]; x++){
+  for(var y = 0; y < config.size[1]; y++){
+    for(var x = 0; x < config.size[0]; x++){
       if(map[y][x] > max){
         max = map[y][x];
       }
     }
   }
 
-  ctx.font = font;
+  ctx.font = config.font;
   ctx.textAlign = "center";
-  for(var y = 0; y < size[1]; y++){
-    for(var x = 0; x < size[0]; x++){
+  for(var y = 0; y < config.size[1]; y++){
+    for(var x = 0; x < config.size[0]; x++){
       var top = (y*s) + (y*p);
       var left = (x*s) + (x*p);
-      var blue = 0;
-      var green = 255 - Math.floor(map[y][x]/max * 255);
-      var red = 255;
+
+      var red = Math.floor(map[y][x]/max * (config.heatColor[1].r - config.heatColor[0].r)) + config.heatColor[0].r;
+      var green = Math.floor(map[y][x]/max * (config.heatColor[1].g - config.heatColor[0].g)) + config.heatColor[0].g;
+      var blue = Math.floor(map[y][x]/max * (config.heatColor[1].b - config.heatColor[0].b)) + config.heatColor[0].b;
 
       if(map[y][x]){
         ctx.fillStyle = "rgb(" + red + "," + green + "," + blue + ")";
         ctx.fillRect(left,top,s,s);
-        ctx.fillStyle = "#212121";
-        ctx.fillText(map[y][x],left + (s/2),top + (s/2) + fontSize/3);
+        ctx.fillStyle = config.fontColor;
+        ctx.fillText(map[y][x],left + (s/2),top + (s/2) + config.fontSize/3);
       }
     }
   }

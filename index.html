@@ -3,9 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <title>HeatMap Experimenting</title>
-    <script src="js/fingerprint.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- JS -->
     <script src="js/index.js"></script>
     <script src="js/maps.js"></script>
+    <script src="js/server.js"></script>
+
+    <!-- Libraries -->
+    <script src="js/fastclick.js"></script>
+    <script src="js/ajax.js"></script>
+    <script src="js/fingerprint.js"></script>
+
     <style>
     @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
 
@@ -15,12 +25,12 @@
       font-family: Montserrat, sans-serif;
       text-align: center;
       margin: 0px;
+      width: 320px;
+      margin: auto;
     }
 
     section {
       margin: 0px;
-      margin-top: 20px;
-      margin-bottom: 20px;
     }
 
     a {
@@ -31,6 +41,8 @@
       padding: 5px;
       margin: 0px;
       font-size: 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     p.bold {
@@ -46,9 +58,12 @@
     </section>
 
     <section id="after" style="display:none;">
-      <p class="bold">Thank you for participating. Here are the results.</p>
+      <p class="bold">Thank you for participating.</p>
     </section>
 
     <canvas id="canvas"></canvas>
+
+    <p><a href="https://github.com/dotjersh/heatmapsocialexperiment/blob/master/README.md">Privacy</a> | <a href="https://github.com/dotjersh/heatmapsocialexperiment">Github</a></p>
+
   </body>
 </html>
