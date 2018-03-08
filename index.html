@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" >
+  <head>
+    <meta charset="UTF-8">
+    <title>HeatMap Experimenting</title>
+    <script src="js/fingerprint.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/maps.js"></script>
+    <style>
+    @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+    body{
+      background-color: #212121;
+      color: white;
+      font-family: Montserrat, sans-serif;
+      text-align: center;
+      margin: 0px;
+    }
+
+    section {
+      margin: 0px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: white;
+    }
+
+    p {
+      padding: 5px;
+      margin: 0px;
+      font-size: 15px;
+    }
+
+    p.bold {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    </style>
+  </head>
+
+  <body>
+    <section id="before">
+      <p class="bold">Select a tile below:</p>
+    </section>
+
+    <section id="after" style="display:none;">
+      <p class="bold">Thank you for participating. Here are the results.</p>
+    </section>
+
+    <canvas id="canvas"></canvas>
+  </body>
+</html>
