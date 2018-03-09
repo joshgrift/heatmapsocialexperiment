@@ -12,6 +12,10 @@ var config = {
 var server = null;
 
 window.onload = function(){
+  if(Fingerprint){
+    document.getElementById('adblocker').style.display = 'none';
+  }
+  
   FastClick.attach(document.body);
 
   server = new Server('https://josh.grift.ca/heat/api.php').validated(function(data){
