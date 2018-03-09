@@ -35,7 +35,6 @@ var Server = function(url){
         url: url + "?a=validate&r=" + fingerprint,
       }).then(function(response){
         tempMap = response.map;
-        console.log(tempMap);
         onValidation({map:tempMap,permissionGranted:response.permission});
       });
 

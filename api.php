@@ -29,7 +29,6 @@ function addPoint($fingerprint,$x,$y){
   global $database;
 
   $database->query("INSERT INTO `saves` (`fingerprint`, `ip`,`x`,`y`) VALUES ('" . $fingerprint . "', '" . $_SERVER['REMOTE_ADDR'] . "','" . $x ."','" . $y . "')");
-  $database->query("INSERT INTO `map` (`x`, `y`, `count`) VALUES('$x', '$y', '1') ON DUPLICATE KEY UPDATE `count`= `count` + 1");
 }
 
 function checkFingerprint($fingerprint){
@@ -55,7 +54,7 @@ function checkFingerprint($fingerprint){
 function getMap(){
   global $database;
   $map = [];
-  $result = $database->query("SELECT * FROM `map` WHERE 1");
+  $result = $database->query("SELECT `x`,`y` FROM `saves` WHERE `banned` = 0");
 
   for($i = 0; $i < count($result); $i++){
     if(count($map) - 1 < $result[$i]['y']){
@@ -70,7 +69,7 @@ function getMap(){
       }
     }
 
-    $map[$result[$i]['y']][$result[$i]['x']] = $result[$i]['count'];
+    $map[$result[$i]['y']][$result[$i]['x']]++;
   }
 
   return $map;
