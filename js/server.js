@@ -1,21 +1,27 @@
 var Server = function(url){
-  var tempMap =  [[5, 4, 3, 2, 1, 0, 0, 0],
-                  [6, 5, 4, 3, 2, 1, 0, 0],
-                  [7, 6, 5, 4, 3, 2, 1, 0],
-                  [8, 7, 6, 5, 4, 3, 2, 1],
-                  [7, 6, 5, 4, 3, 2, 1, 0],
-                  [6, 5, 4, 3, 2, 1, 0, 0],
-                  [5, 4, 3, 2, 1, 0, 0, 0],
-                  [4, 3, 2, 1, 0, 0, 0, 0]];
+  var tempMap = [];
 
   var fingerprint = new Fingerprint().get();
 
   var onValidation = function(){return null;}
 
   function post(x,y){
-    //make api call here
+    var request = ajax({
+      method: 'get',
+      url: url + "?a=post&r=" + fingerprint + "-" + x + "-" + y,
+    }).then(function(response){
+      console.log(response);
+    });
 
-    tempMap[y][x] = tempMap[y][x] + 1;
+    while(!tempMap[y]){
+      tempMap.push([]);
+    }
+
+    while(tempMap[y][x] != 0 && !tempMap[y][x]){
+      tempMap[y].push(0);
+    }
+
+    tempMap[y][x] = parseInt(tempMap[y][x]) + 1;
 
     return tempMap;
   }
@@ -24,10 +30,14 @@ var Server = function(url){
     validated: function(func){
       onValidation = func;
 
-      //make api call here
-        //on completed, call onValidation(data)
-        //save tempmap
-        onValidation({map:tempMap,permissionGranted:true})
+      var request = ajax({
+        method: 'get',
+        url: url + "?a=validate&r=" + fingerprint,
+      }).then(function(response){
+        tempMap = response.map;
+        console.log(tempMap);
+        onValidation({map:tempMap,permissionGranted:response.permission});
+      });
 
       return this;
     },

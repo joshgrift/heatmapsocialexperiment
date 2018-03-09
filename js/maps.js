@@ -67,8 +67,8 @@ var HeatMap = function(canvas,map,config){
 
   var max = 0;
 
-  for(var y = 0; y < config.size[1]; y++){
-    for(var x = 0; x < config.size[0]; x++){
+  for(var y = 0; y < map.length; y++){
+    for(var x = 0; x < map[y].length; x++){
       if(map[y][x] > max){
         max = map[y][x];
       }
@@ -77,8 +77,8 @@ var HeatMap = function(canvas,map,config){
 
   ctx.font = config.font;
   ctx.textAlign = "center";
-  for(var y = 0; y < config.size[1]; y++){
-    for(var x = 0; x < config.size[0]; x++){
+  for(var y = 0; y < map.length; y++){
+    for(var x = 0; x < map[y].length; x++){
       var top = (y*s) + (y*p);
       var left = (x*s) + (x*p);
 

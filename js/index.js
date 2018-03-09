@@ -6,7 +6,7 @@ var config = {
   font: "bold 16px Arial",
   fontSize: 16,
   selectColor: ['#3d62fe','#3d96fe'],
-  heatColor: [{r:255,b:60,g:255},{r:255,b:222,g:0}]//heat map in three rgb values
+  heatColor: [{r:255,g:255,b:60},{r:255,g:0,b:222}]//heat map in three rgb values
 }
 
 var server = null;
@@ -14,7 +14,7 @@ var server = null;
 window.onload = function(){
   FastClick.attach(document.body);
 
-  server = new Server('api.php').validated(function(data){
+  server = new Server('https://josh.grift.ca/heat/api.php').validated(function(data){
     if(data.permissionGranted){
       new SelectMap(document.getElementById('canvas'),function(x,y){
         document.getElementById('before').style.display = 'none';
