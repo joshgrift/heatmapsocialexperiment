@@ -1,14 +1,12 @@
 var Server = function(url){
   var tempMap = [];
 
-  var fingerprint = new Fingerprint().get();
-
   var onValidation = function(){return null;}
 
   function post(x,y){
     var request = ajax({
       method: 'get',
-      url: url + "?a=post&r=" + fingerprint + "-" + x + "-" + y,
+      url: url + "?a=post&r=" + x + "-" + y,
     }).then(function(response){
       console.log(response);
     });
@@ -32,7 +30,7 @@ var Server = function(url){
 
       var request = ajax({
         method: 'get',
-        url: url + "?a=validate&r=" + fingerprint,
+        url: url + "?a=validate",
       }).then(function(response){
         tempMap = response.map;
         onValidation({map:tempMap,permissionGranted:response.permission});
