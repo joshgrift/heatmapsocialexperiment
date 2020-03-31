@@ -1,3 +1,5 @@
+While this was fun, I no longer have the resources to maintain it, thanks for participating :)
+
 # Heat Map Social Experiment
 I was on the bus, bored out of my mind, and wondered: If someone was presented with an 8 by 8 grid (no center), what tile would they choose?
 
